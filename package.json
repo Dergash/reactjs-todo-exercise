@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,7 @@
   "author": "dergachev",
   "license": "ISC",
   "devDependencies": {
+    "react": "^0.14.8",
     "webpack": "^1.12.14"
   }
 }
