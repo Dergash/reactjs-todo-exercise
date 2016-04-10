@@ -3,13 +3,21 @@ import {Task} from './task.js';
 export class TaskList extends React.Component {
     constructor(props) {    // props неизменяемые свойства объекта, state изменяемые
         super(props);
+        
+
+        if(this.props.listType == 'active') {
+            this.appendTaskButton = <button type='submit' className="appendButton">Добавить задачу</button>;
+            this.props.manager.setActiveList(this);
+        }
+        else if(this.props.listType == 'closed') {
+            // alert(typeof ( this.taskProvider() ));
+            this.props.manager.setClosedList(this);
+        }
+        
         this.state = {
             items: this.props.taskProvider(),
             length: this.props.items.length
         };
-        if (this.props.hasAppendButton) {
-            this.appendTaskButton = <button type='submit' className="appendButton">Добавить задачу</button>;
-        }
     }
     closeTask(task) {
         this.props.manager.closeTask(task, () => this.update());

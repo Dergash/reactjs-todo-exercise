@@ -12,13 +12,12 @@ class ToDoApp extends React.Component {
         this.state = { items: [], counter: 0 };
     }
     getActiveTasks() {
-        
         var result = this.state.items.filter(task => task.props.isClosed == false)
         return result;
     }
     getClosedTasks() {
         
-        return this.state.items.filter(task => task.state.isClosed == true);
+        return this.state.items.filter(task => task.props.isClosed == true);
     }
     appendTask(updateCallback, closeHandler, deleteHandler) {
         var newCounter = this.state.counter + 1;
@@ -38,14 +37,26 @@ class ToDoApp extends React.Component {
         var closedTask = <Task taskId={taskToClose.props.taskId} key={taskToClose.props.taskId} 
                     onClose={taskToClose.props.onClose} onDelete={taskToClose.props.onDelete} isClosed={true} />
         this.state.items[taskToCloseIndex] = closedTask;
-        this.setState({ items: this.state.items }, () => { updateCallback(); });
+        this.setState({ items: this.state.items }, () => {
+             updateCallback(); 
+             this.state.closedList.update();    
+        });
+        
+    }
+    setActiveList(list) {
+        this.setState({activeList: list});
+        //alert(typeof list.update);
+    }
+    setClosedList(list) {
+        this.setState({closedList: list});
+        //alert(list);
     }
     render() {
         return (<div>
             <h1>Активные задачи</h1>
-            <div className="taskList"><TaskList hasAppendButton={true} manager={this} taskProvider={(e) => this.getActiveTasks(e)} /></div>
+            <div className="taskList"><TaskList manager={this} listType='active' taskProvider={() => this.getActiveTasks()} /></div>
             <h1>Завершенные задачи</h1>
-            <div className="taskList"><TaskList manager={this} taskProvider={(e) => this.getClosedTasks(e)} /></div>
+            <div className="taskList"><TaskList manager={this} listType='closed' taskProvider={() => this.getClosedTasks()} /></div>
         </div>);
     }
 }
