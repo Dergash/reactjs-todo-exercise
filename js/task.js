@@ -3,8 +3,8 @@ export class Task extends React.Component {
         super(props);
         this.state = {name: 'Задание #' + props.taskId,  taskId: props.taskId, isClosed: props.isClosed };
     }
-    close(e) {
-       this.props.onClose(this, e);
+    check(e) {
+        this.props.onCheck(this, e);
     }
     delete(e) {     
         this.props.onDelete(this, e);
@@ -12,7 +12,7 @@ export class Task extends React.Component {
     render() {
        
         return (
-                <li><input className='taskCheckbox' type='checkbox' onClick={(e) => this.close(e)}/>
+                <li><input className='taskCheckbox' type='checkbox' onClick={(e) => this.check(e)}/>
                     <input className='taskName' type='text' value={this.state.name}/> 
                     <a href='#' className='taskDeleteButton' onClick={(e) => this.delete(e)}>Удалить</a>
                 </li>

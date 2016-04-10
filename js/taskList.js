@@ -10,7 +10,6 @@ export class TaskList extends React.Component {
             this.props.manager.setActiveList(this);
         }
         else if(this.props.listType == 'closed') {
-            // alert(typeof ( this.taskProvider() ));
             this.props.manager.setClosedList(this);
         }
         
@@ -19,15 +18,24 @@ export class TaskList extends React.Component {
             length: this.props.items.length
         };
     }
-    closeTask(task) {
-        this.props.manager.closeTask(task, () => this.update());
-    }
     deleteTask(task) {
         this.props.manager.deleteTask(task, () => this.update()); 
     }
+    checkTask(task) {
+        
+            //   alert(this.props.isClosed);  
+        if(task.props.isClosed) {
+           
+            this.props.manager.openTask(task, () => this.update());
+        }
+        else {
+            this.props.manager.closeTask(task, () => this.update());
+        } 
+    }
     appendTask(e) {
         e.preventDefault();
-        this.props.manager.appendTask(() => this.update(), (e) => this.closeTask(e), (e) => this.deleteTask(e));
+        this.props.manager.appendTask(() => this.update(), (e) => this.closeTask(e), (e) => this.deleteTask(e), 
+                                   (e) => this.checkTask(e));
     }
     update() {
         this.setState({ items: this.props.taskProvider() });

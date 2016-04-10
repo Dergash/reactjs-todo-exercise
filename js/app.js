@@ -12,16 +12,15 @@ class ToDoApp extends React.Component {
         this.state = { items: [], counter: 0 };
     }
     getActiveTasks() {
-        var result = this.state.items.filter(task => task.props.isClosed == false)
-        return result;
+        return this.state.items.filter(task => task.props.isClosed == false);
     }
     getClosedTasks() {
-        
         return this.state.items.filter(task => task.props.isClosed == true);
     }
-    appendTask(updateCallback, closeHandler, deleteHandler) {
+    appendTask(updateCallback, closeHandler, deleteHandler, checkHandler) {
         var newCounter = this.state.counter + 1;
-        var newTask = <Task taskId={newCounter} key={newCounter} onClose={closeHandler} onDelete={deleteHandler} />;
+        var newTask = <Task taskId={newCounter} key={newCounter} onDelete={deleteHandler} 
+                        onCheck={checkHandler} />;
         var newItems = this.state.items.concat(newTask);
         this.setState({ items: newItems, counter: newCounter }, () => updateCallback());  
     }
@@ -34,22 +33,31 @@ class ToDoApp extends React.Component {
     closeTask(task, updateCallback) {
         var taskToClose = this.state.items.filter(x => x.props.taskId == task.props.taskId)[0];
         var taskToCloseIndex = this.state.items.indexOf(taskToClose);
-        var closedTask = <Task taskId={taskToClose.props.taskId} key={taskToClose.props.taskId} 
-                    onClose={taskToClose.props.onClose} onDelete={taskToClose.props.onDelete} isClosed={true} />
+        var closedTask = <Task taskId={taskToClose.props.taskId} key={taskToClose.props.taskId} isClosed={true}
+        onCheck={taskToClose.props.onCheck} onDelete={taskToClose.props.onDelete}  />
         this.state.items[taskToCloseIndex] = closedTask;
         this.setState({ items: this.state.items }, () => {
-             updateCallback(); 
-             this.state.closedList.update();    
+             this.state.closedList.update();
+             this.state.activeList.update();        
         });
+    }
+    openTask(task, updateCallback) {
         
+        var taskToOpen = this.state.items.filter(x => x.props.taskId == task.props.taskId)[0];
+        var taskToOpenIndex = this.state.items.indexOf(taskToOpen);
+        var openedTask = <Task taskId={taskToOpen.props.taskId} key={taskToOpen.props.taskId} isClosed={false}
+        onCheck={taskToOpen.props.onCheck}  onDelete={taskToOpen.props.onDelete}  />
+        this.state.items[taskToOpenIndex] = openedTask;     
+        this.setState({ items: this.state.items }, () => {
+             this.state.closedList.update();
+             this.state.activeList.update();    
+        });
     }
     setActiveList(list) {
         this.setState({activeList: list});
-        //alert(typeof list.update);
     }
     setClosedList(list) {
         this.setState({closedList: list});
-        //alert(list);
     }
     render() {
         return (<div>
