@@ -2,76 +2,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {Task} from './task.js';
+import {TaskList} from './taskList.js';
 
 /* Компонент приложения, задает начальное состояние данных в списке */
 class ToDoApp extends React.Component {
     constructor() {
         super();
-        this.state = {items: []};
+        this.state = { items: [], counter: 0 };
+    }
+    getActiveTasks() {
+        
+        var result = this.state.items.filter(task => task.props.isClosed == false)
+        return result;
+    }
+    getClosedTasks() {
+        
+        return this.state.items.filter(task => task.state.isClosed == true);
+    }
+    appendTask(updateCallback, closeHandler, deleteHandler) {
+        var newCounter = this.state.counter + 1;
+        var newTask = <Task taskId={newCounter} key={newCounter} onClose={closeHandler} onDelete={deleteHandler} />;
+        var newItems = this.state.items.concat(newTask);
+        this.setState({ items: newItems, counter: newCounter }, () => updateCallback());  
+    }
+    deleteTask(task, updateCallback) {
+        var taskToDelete = this.state.items.filter(x => x.props.taskId == task.props.taskId);
+        var taskToDeleteIndex = this.state.items.indexOf(taskToDelete[0]);
+        this.state.items.splice(taskToDeleteIndex, 1);
+        this.setState({ items: this.state.items }, () => updateCallback());
+    }
+    closeTask(task, updateCallback) {
+        var taskToClose = this.state.items.filter(x => x.props.taskId == task.props.taskId)[0];
+        var taskToCloseIndex = this.state.items.indexOf(taskToClose);
+        var closedTask = <Task taskId={taskToClose.props.taskId} key={taskToClose.props.taskId} 
+                    onClose={taskToClose.props.onClose} onDelete={taskToClose.props.onDelete} isClosed={true} />
+        this.state.items[taskToCloseIndex] = closedTask;
+        this.setState({ items: this.state.items }, () => { updateCallback(); });
     }
     render() {
-         return (<div className="taskList"><TaskList items={this.state.items} /></div>);
+        return (<div>
+            <h1>Активные задачи</h1>
+            <div className="taskList"><TaskList hasAppendButton={true} manager={this} taskProvider={(e) => this.getActiveTasks(e)} /></div>
+            <h1>Завершенные задачи</h1>
+            <div className="taskList"><TaskList manager={this} taskProvider={(e) => this.getClosedTasks(e)} /></div>
+        </div>);
     }
 }
 
-class TaskList extends React.Component {
-    constructor(props) {    // props неизменяемые свойства объекта, state изменяемые
-        super(props);       
-        this.state = {items: this.props.items, length: this.props.items.length};
-    }
-    deleteTask(taskId) { 
-         var taskToDelete = this.state.items.filter(e => e.props.taskId == taskId);
-         var taskToDeleteIndex = this.state.items.indexOf(taskToDelete[0]);
-         this.state.items.splice(taskToDeleteIndex,1);
-         this.setState({items: this.state.items});
-    }
-    appendTask(e) {   
-        e.preventDefault();
-        var newLength = Counter + 1;
-        var nextItems = this.state.items.concat(<Task  onDelete={(e) => this.deleteTask(e)} taskId={Counter}  />);
-        this.setState({items: nextItems, length: newLength});
-        Counter++;
-    }
-    
-    render() {      // перебор по коллекции из состояниия класса, на каждый элемент создается задача;
-                    // по итогу тасков два набора, но возможно имеет смысл хранить в this.state.items 
-                    // не компоненты, а модели
-        return (
-            <form onSubmit={(e) => this.appendTask(e)}>
-            <button type='submit' className="appendButton">Добавить задачу</button>
-            <ul className="taskList">       
-            {
-                this.state.items.map((item) => {
-                    return  <Task onDelete={(e) => this.deleteTask(e)} taskId={item.props.taskId} key={item.props.taskId} />; 
-                })
-            }
-            </ul>
-            </form>
-        )
-    }
-}
-
-class Task extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {name: 'Задание #' + props.taskId,  taskId: props.taskId };
-    }
-    delete(e) {     // Callback, вызываем родительский метод для удаления задачи        
-       this.props.onDelete(this.state.taskId);
-    }
-    render() {
-       
-        return (
-                <li><input className='taskCheckbox' type='checkbox'/>
-                    <input className='taskName' type='text' value={this.state.name}/> 
-                    <a href='#' className='taskDeleteButton' onClick={(e) => this.delete(e)}>Удалить</a>
-                </li>
-        );
-    }
-}
-
-// Счетчик активных задач 
-// TODO : перенести в TaskList
-var Counter = 1;
-
-ReactDOM.render(<ToDoApp />, document.getElementById('container'));
+ReactDOM.render(<ToDoApp />, document.getElementById('appContainer'))
