@@ -1,0 +1,151 @@
+body {
+    font-family: "Segoe UI" !important;
+    font-size: 14px;
+}
+
+.pageLayout {
+    left: 25%;
+    right: 25%;
+    position: absolute;
+}
+
+.appendButton {
+    border: 0px;
+    background-color: #3a3;
+    cursor: pointer;
+    padding-left: 20px;
+    min-height: 40px;
+    padding-right: 20px;
+    text-decoration: underline;
+    color: white;
+    text-decoration: none;
+    display:  block;
+    width: 100%;
+    font-size: 1.2em;
+    min-width: 300px;
+}
+
+.appendButton:hover
+{
+    background-color: #292
+}
+
+.taskCheckbox {
+    width: 16px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0;
+    margin:0;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+    margin-right: 8px;
+}
+
+.taskName {
+    width: 60%;
+    min-width: 150px;
+    background-color: transparent;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 1.1em;
+   
+    color: white;
+    overflow: hidden
+}
+
+.taskButton {
+    background-color: Transparent;                 
+    text-decoration: underline;                 
+    color:   #Ec4042;
+    font-size: 1.1em;
+
+    font-weight:  600;
+    cursor: pointer; 
+    border:0;
+    float: right;
+    min-height: 40px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.deleteButton {
+    color: #F00;
+}
+
+.deleteButton:hover {
+    color: #eee;
+}
+
+.restoreButton {
+    color: #ddd;
+}
+
+.restoreButton:hover {
+    color: #38c;
+}
+
+.editButton {
+    color: #eee;
+}
+
+.editButton:hover {
+    color: #ccc;
+}
+ .taskList  {
+    padding: 0px;
+    display:  block;
+    min-height: 40px;
+    min-width: 300px;
+}
+
+.taskList > li {
+    min-height: 40px;
+    display: block;
+    background-color: #168; 
+    margin-bottom: 5px;
+    color: #eee;
+    line-height: 40px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+/*.taskList > li:hover {
+     background-color: #1c6c8c; 
+}*/
+
+.closedTaskList .taskList li {
+    min-height: 40px;
+    display: block;
+    background-color: #abb; 
+    margin-bottom: 5px;
+    color: white;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+input[type="checkbox"]:not(:disabled) {
+    cursor: pointer;
+}
+
+input[type="text"][readonly]:not([disabled]):hover{
+    cursor: pointer !important;
+    color: #ccc;
+}
+
+input[type="text"]:not([readonly]):not([disabled]){
+
+    cursor: pointer !important;
+    color: #ccc;
+}
+
+.noWrap {
+    display: block;
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+}

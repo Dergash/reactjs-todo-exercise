@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <script src="http://localhost:8080/public/helloWorld.js"></script>
+    <meta charset="utf-8">
+        <link href="global.css" rel="stylesheet" type="text/css"/>     
+        <script src="./../js/lib/es5-shim.js"></script>
+        <script src="./../js/lib/es6-shim.js"></script>
+        <script src="./../js/lib/browser.min.js"></script>
+        <script src="./../js/lib/react.js"></script>
+        <script src="./../js/lib/react-dom.js"></script>  
   </head>
   <body>
-      
+      <div class="pageLayout">
+      <div id="appContainer"></div>
+        <script src="./app.js" defer></script>
+      </div>
   </body>
 </html>

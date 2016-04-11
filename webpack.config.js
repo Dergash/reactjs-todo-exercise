@@ -1,12 +1,22 @@
 module.exports = {
     entry: {
         helloWorld: [
-            'webpack-dev-server/client?http://localhost:8080',
-             './js/helloworld.js',
-             'webpack/hot/only-dev-server',
+            './js/app.js',
         ]  
     },
     output: {
-        filename: 'public/[name].js'
-    }
+        filename: 'public/app.js'
+    },
+    module: {
+        loaders: [
+        {
+            test: /.jsx?$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+            query: {
+                presets: ['es2015','react']
+            }
+        }
+    ]
+  },
 };
