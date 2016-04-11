@@ -4,8 +4,9 @@ body {
 }
 
 .pageLayout {
-    margin-left: 25%;
-    margin-right: 25%;
+    left: 25%;
+    right: 25%;
+    position: absolute;
 }
 
 .appendButton {
@@ -43,13 +44,14 @@ body {
 }
 
 .taskName {
-    max-width: 150px;
+    width: 75%;
     min-width: 150px;
     background-color: transparent;
     border: 0px;
     padding: 0px;
     margin: 0px;
     font-size: 1.1em;
+   
     color: white;
     overflow: hidden
 }
@@ -84,7 +86,7 @@ body {
 }
 
 .restoreButton:hover {
-    color: #444;
+    color: #38c;
 }
 
 .editButton {
@@ -109,6 +111,7 @@ body {
     color: #eee;
     line-height: 40px;
     padding-left: 10px;
+    overflow: hidden;
 }
 
 /*.taskList > li:hover {
@@ -129,13 +132,12 @@ input[type="checkbox"]:not(:disabled) {
     cursor: pointer;
 }
 
-input[type="text"][readonly]:hover{
-
+input[type="text"][readonly]:not([disabled]):hover{
     cursor: pointer !important;
     color: #ccc;
 }
 
-input[type="text"]:not([readonly]){
+input[type="text"]:not([readonly]):not([disabled]){
 
     cursor: pointer !important;
     color: #ccc;

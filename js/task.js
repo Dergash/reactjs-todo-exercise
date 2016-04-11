@@ -61,8 +61,9 @@ export class Task extends React.Component {
         return (
                 <li>
                     {this.checkButton}     
-                    <input className='taskName' type='text' onChange={(e) => this.onChange(e)} 
-                    value={this.state.name} readOnly={!this.state.isEdit} onBlur={(e) => this.acceptChanges(e)} onClick={(e) => this.edit(e)} />                   
+                    <input className='taskName' type='text' onChange={(e) => this.onChange(e)} disabled={this.state.isClosed}
+                    value={this.state.name} readOnly={!this.state.isEdit} onBlur={(e) => this.acceptChanges(e)} 
+                    onClick={(e) => this.edit(e)} />                   
                     {this.deleteButton}
                     {this.cancelButton}
                     {this.restoreButton}
