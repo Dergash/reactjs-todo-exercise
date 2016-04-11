@@ -14,13 +14,16 @@
   "author": "dergachev",
   "devDependencies": {
     "babel-core": "^6.4.5",
+    "babel-preset-react": "^6.5.0",
     "babel-loader": "^6.2.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "babel-core": "^6.4.5",
     "babel-preset-react": "^6.5.0",
+    "babel-loader": "^6.2.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
   }

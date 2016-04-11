@@ -1,63 +1,61 @@
+
+require('./lib/es5-shim.js');
+require('./lib/es5-sham.js');
+
 import {Task} from './task.js';
 
 export class TaskList extends React.Component {
     constructor(props) {    // props неизменяемые свойства объекта, state изменяемые
         super(props);
-        
-
-        if(this.props.listType == 'active') {
-            this.appendTaskButton = <button type='submit' className="appendButton">Добавить задачу</button>;
-            this.props.manager.setActiveList(this);
+        if(props.listType == 'active') {
+            this.appendTaskButton =  <button onClick={(e) => this.appendTask(e) } className="appendButton">Добавить задачу</button>;
+            props.manager.setActiveList(this);
         }
-        else if(this.props.listType == 'closed') {
-            this.props.manager.setClosedList(this);
+        else if(props.listType == 'closed') {
+            props.manager.setClosedList(this);
         }
         
         this.state = {
-            items: this.props.taskProvider(),
-            length: this.props.items.length
+            items: props.taskProvider(),
+            length: props.items.length
         };
     }
     deleteTask(task) {
         this.props.manager.deleteTask(task, () => this.update()); 
     }
     checkTask(task) {
-        
-            //   alert(this.props.isClosed);  
         if(task.props.isClosed) {
-           
-            this.props.manager.openTask(task, () => this.update());
+            this.props.manager.openTask(task);
         }
         else {
-            this.props.manager.closeTask(task, () => this.update());
+            this.props.manager.closeTask(task);
         } 
+    }
+    changeTask(task) {
+        this.props.manager.changeTask(task, () => this.update());
     }
     appendTask(e) {
         e.preventDefault();
         this.props.manager.appendTask(() => this.update(), (e) => this.closeTask(e), (e) => this.deleteTask(e), 
-                                   (e) => this.checkTask(e));
+                                   (e) => this.checkTask(e), (e) => this.changeTask(e));
     }
     update() {
         this.setState({ items: this.props.taskProvider() });
     }
-    render() {      // перебор по коллекции из состояниия класса, на каждый элемент создается задача;
+    render() {
         return (
-            <form onSubmit={(e) => this.appendTask(e) }>
-                {() => { return <button type='submit' className="appendButton">Добавить задачу</button> } }
+            <div>
                 {this.appendTaskButton}
-                <ul className="taskList">
+                <ul className='taskList'>
                     {
                         this.state.items.map((item) => {
-                            return item ;
+                            return item;
                         })
                     }
                 </ul>
-            </form>
+            </div>
         )
     }
 }
 
-TaskList.defaultProps = {
-    hasAppendButton: false,
-    items: []
-}
+TaskList.defaultProps = { hasAppendButton: false, items: [] }

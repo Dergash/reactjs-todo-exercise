@@ -54,7 +54,7 @@ body {
     overflow: hidden
 }
 
-.taskDeleteButton {
+.taskButton {
     background-color: Transparent;                 
     text-decoration: underline;                 
     color:   #Ec4042;
@@ -71,12 +71,30 @@ body {
     text-decoration: none;
 }
 
-.taskDeleteButton:hover {
-    color:  #F44;
+.deleteButton {
+    color: #F00;
 }
 
-.taskList {
+.deleteButton:hover {
+    color: #eee;
+}
 
+.restoreButton {
+    color: #ddd;
+}
+
+.restoreButton:hover {
+    color: #444;
+}
+
+.editButton {
+    color: #eee;
+}
+
+.editButton:hover {
+    color: #ccc;
+}
+ .taskList  {
     padding: 0px;
     display:  block;
     min-height: 40px;
@@ -88,12 +106,38 @@ body {
     display: block;
     background-color: #168; 
     margin-bottom: 5px;
+    color: #eee;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+/*.taskList > li:hover {
+     background-color: #1c6c8c; 
+}*/
+
+.closedTaskList .taskList li {
+    min-height: 40px;
+    display: block;
+    background-color: #abb; 
+    margin-bottom: 5px;
     color: white;
     line-height: 40px;
     padding-left: 10px;
 }
 
-/*
-.taskList > li:hover {
-     background-color: #1c6c8c; 
-} */
+input[type="checkbox"]:not(:disabled) {
+    cursor: pointer;
+}
+
+input[type="text"][readonly]:hover{
+
+    cursor: pointer !important;
+    color: #ccc;
+}
+
+input[type="text"]:not([readonly]){
+
+    cursor: pointer !important;
+    color: #ccc;
+}
+
