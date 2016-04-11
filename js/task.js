@@ -1,7 +1,6 @@
 
 require('./lib/es5-shim.js');
 require('./lib/es5-sham.js');
-
 export class Task extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +18,7 @@ export class Task extends React.Component {
             this.restoreButton = <a href='#' className='taskButton restoreButton' onClick={(e) => this.check(e)}>Восстановить</a>;
         }
     }
+    
     check(e) {
         this.props.onCheck(this, e);
     }
@@ -64,8 +64,8 @@ export class Task extends React.Component {
                     <input className='taskName' type='text' onChange={(e) => this.onChange(e)} disabled={this.state.isClosed}
                     value={this.state.name} readOnly={!this.state.isEdit} onBlur={(e) => this.acceptChanges(e)} 
                     onClick={(e) => this.edit(e)} />                   
-                    {this.deleteButton}
-                    {this.cancelButton}
+                    <span className='noWrap'>{this.deleteButton}
+                    {this.cancelButton}</span>
                     {this.restoreButton}
                 </li>
         );

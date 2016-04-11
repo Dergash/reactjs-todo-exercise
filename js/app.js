@@ -5,7 +5,6 @@ require('./lib/es5-sham.js');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
 import {Task} from './task.js';
 import {TaskList} from './taskList.js';
 
@@ -13,22 +12,13 @@ import {TaskList} from './taskList.js';
 class ToDoApp extends React.Component {
     constructor() {
         super();
-        //var localState =  JSON.parse(localStorage.getItem('state') || '{}');
-        
+       // var localState =  JSON.parse(localStorage.getItem('state') || '{}');
+       
         this.state = { items: [], counter: 0 }; 
-        // if(localStorage.getItem('state').length > 0) {
-        //     var localItems = [];
-        //     for(var i = 0; i < localState.items.length; i++) {
-        //         var localItem = localState.items[i];
-        //         localItems.push(<Task key={localItem.key} taskId={localItem.taskId} isClosed={localItem.isClosed}
-        //                             name={localItem.name} />);
-        //     }
-        //     this.state = { items: localItems, counter: localState.counter };
-        // }
     }
-    // componentWillMount(prevProps, prevState) {
-    //     localStorage.state = JSON.stringify(this.state);
-    // }
+    //  componentDidMount(prevProps, prevState) {
+    //      localStorage.state = JSON.stringify(this.state);
+    //  }
     getActiveTasks() {
         return this.state.items.filter(task => task.props.isClosed == false);
     }

@@ -44,7 +44,7 @@ body {
 }
 
 .taskName {
-    width: 75%;
+    width: 60%;
     min-width: 150px;
     background-color: transparent;
     border: 0px;
@@ -143,3 +143,9 @@ input[type="text"]:not([readonly]):not([disabled]){
     color: #ccc;
 }
 
+.noWrap {
+    display: block;
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+}

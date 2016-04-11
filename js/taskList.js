@@ -1,11 +1,10 @@
 
 require('./lib/es5-shim.js');
 require('./lib/es5-sham.js');
-
 import {Task} from './task.js';
 
 export class TaskList extends React.Component {
-    constructor(props) {    // props неизменяемые свойства объекта, state изменяемые
+    constructor(props) {
         super(props);
         if(props.listType == 'active') {
             this.appendTaskButton =  <button onClick={(e) => this.appendTask(e) } className="appendButton">Добавить задачу</button>;
@@ -16,8 +15,7 @@ export class TaskList extends React.Component {
         }
         
         this.state = {
-            items: props.taskProvider(),
-            length: props.items.length
+            items: props.taskProvider()
         };
     }
     deleteTask(task) {
